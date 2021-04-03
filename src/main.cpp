@@ -78,7 +78,7 @@ float getTemperature(){
 
 void printTime()
 {
-  int time = upd_last / 1000;
+  int time = millis() / 1000;
   Serial.print("[");
   Serial.print(time/3600);
   Serial.print(":");
