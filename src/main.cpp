@@ -16,6 +16,7 @@ ds_sensor ds_connect(ts_pin);
 
 unsigned int upd_last = 0;
 bool output_block = false;
+bool temperature_startup = true;
 float ts_barrel = 0, ts_temp_average = 0;
 
 float getTemperature();
@@ -38,9 +39,18 @@ void loop(){
     if(!output_block){
       float current_temp = getTemperature();
 
-      ts_barrel += current_temp;
-      ts_temp_average = ts_barrel / ts_barrel_capacity;
-      ts_barrel -= ts_temp_average;
+      if(!temperature_startup)
+      {
+        ts_barrel += current_temp;
+        ts_temp_average = ts_barrel / ts_barrel_capacity;
+        ts_barrel -= ts_temp_average;
+      }
+      else
+      {
+        temperature_startup = false;
+        ts_temp_average = current_temp;
+        ts_barrel = ts_temp_average * (ts_barrel_capacity - 1);
+      }
 
       ds_connect.updateTemperature();
       heat_reg.calculate(current_temp);
