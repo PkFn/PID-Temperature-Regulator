@@ -49,7 +49,7 @@ void loop(){
       Serial.print(current_temp);
       Serial.print("°C\tavT: ");
       Serial.print(ts_temp_average);
-      Serial.print("°C\toutput: ");
+      Serial.print("°C\theat_reg_output: ");
       Serial.println(heat_reg.pid_output);
     }
     else{
