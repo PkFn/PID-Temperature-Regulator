@@ -40,7 +40,7 @@ void loop(){
 
       ts_barrel += current_temp;
       ts_temp_average = ts_barrel / ts_barrel_capacity;
-      ts_barrel -= ts_barrel / ts_barrel_capacity;
+      ts_barrel -= ts_temp_average;
 
       ds_connect.updateTemperature();
       heat_reg.calculate(current_temp);
